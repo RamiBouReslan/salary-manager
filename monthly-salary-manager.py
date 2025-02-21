@@ -14,8 +14,8 @@ while action != "no":
     bill = {}
     newCategory = input("Enter 'no' if there isn't any additional bill category other than savings, rent, and electricity. ")
     if newCategory != "no":
+        utilities = ["Savings","Rent","Electricity"]
         while newCategory != "no":
-            utilities = ["Savings","Rent","Electricity"]
             utility = input("Enter new bill category: ")
             utilities.append(utility)
             newCategory = input("Enter 'no' if there isn't any additional bill category other than savings, rent, and electricity. ")
@@ -42,6 +42,7 @@ while action != "no":
   
     action = input("Want too add a new month? (Enter no if not): ")
 
+
 for i in range(len(monthList)):
     months = monthList[i]
     print (f"\nMonth: {months['month']} \nSalary: ${months['salary']}.\n")
@@ -59,51 +60,44 @@ for i in range(len(monthList)):
         print (f"The combined expences for {months['month']} is {expenses}. ")
         print (f"The remaining amount from your salary for {months['month']} is {value}. ")
         print (f"The estimated yearly cost of rent based on {months['month']}'s budget is: {yearRent}")
-        print (f"The Estimated yearly cost of electricity on {months['month']}'s budget is: {yearElectricity} ")
+        print (f"The estimated yearly cost of electricity on {months['month']}'s budget is: {yearElectricity} ")
+        print (f"The square of {months['month']}'s salary is ${(months['salary'])**2} (For Fun) ")
+        print ("---------------------------------------------------------------------------------------------------")
 
 
+totalSalary = []
+totalRent = []
+totalSavings = []
+totalElectricity = []
+
+if len(monthList) <= 12:
+    for i in range(len(monthList)):
+        months = monthList[i]
+
+        for kind in months["Bills"]:
+            for keys,values in kind.items():
+                if  keys == "Savings":
+                    totalSavings.append(values)
+                elif keys == "Rent":
+                    totalRent.append(values)
+                elif keys == "Electricity":
+                    totalElectricity.append(values)
+    
+        totalSalary.append(months['salary'])  
+        yearlyRent = 12 * sum(totalRent)/len(totalRent) 
+        yearlySavings = 12 * sum(totalSavings)/len(totalSavings)
+        yearlyElectricity = 12 * sum(totalElectricity)/len(totalElectricity)
+        yearlySalary = 12 * sum(totalSalary)/len(totalSalary)
+    
+    print (f"\nThe yearly average budgets will be estimated according to the total number of months entered: {len(totalSalary)}")
+    print (f"The estimated averager yearly salary is ${yearlySalary}")
+    print (f"The estimated averager yearly budget for savings is ${yearlySavings}")   
+    print (f"The estimated averager yearly budget for rent is ${yearlyRent}") 
+    print (f"The estimated averager yearly budget for electricity is ${yearlyElectricity}") 
+    print (f"The square of your yearly estimated salary is {yearlySalary**2}")
+    print ("---------------------------------------------------------------------------------------------------")      
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #     # divided_percentage = []
-        
-    #     while utility != "stop":
-    #         utility = input("Enter allocated utility: ")
-    #         if utility != "stop":
-    #             percentage = int(input(f"Enter the pecentage allocated for {utility}: %"))
-    #             utilities.append(utility)
-    #             divided_percentage.append(percentage) 
-    #         else:
-    #             utilities.append ("Remainder")
-    #             divided_percentage.append(100 - sum(divided_percentage))
-    #             break
-
-    #     budget = []
-
-    #     for i in range(len(utilities)):
-    #         amount = salary * divided_percentage[i]/100
-    #         budget.append(amount)
-    #         if utilities[i] != "Remainder":
-    #             print(f"The budget for {utilities[i]} is ${budget[i]}.")
-    #         else:
-    #             break
-    # print (f"The combined budget of the utilities is ${sum(budget)-amount}.")
-    # print (f"The remainder of your salary for this month is ${amount}.")
+else:
+    print (" --ERROR-- Couldn't calculate yearly budgets. \nYou've entered more than 1 year worth of months. ")
+    print ("---------------------------------------------------------------------------------------------------")   
