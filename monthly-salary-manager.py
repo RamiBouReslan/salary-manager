@@ -2,7 +2,7 @@ action = "yes"
 utility = ""
 monthList = []
 
-while action != "no":
+while action != "no" and action == "yes":
     
     month = input("Specify which month the salary is for: ")
     salary = int(input(f"Enter your salary for {month}: $ "))
@@ -12,13 +12,13 @@ while action != "no":
     }
     bills = []
     bill = {}
-    newCategory = input("Enter 'no' if there isn't any additional bill category other than savings, rent, and electricity. ")
-    if newCategory != "no":
+    newCategory = input("Is there any additional bill category other than savings, rent, and electricity.(Enter 'yes' or 'no'): ")
+    if newCategory != "no" and newCategory == "yes":
         utilities = ["Savings","Rent","Electricity"]
-        while newCategory != "no":
+        while newCategory != "no" and newCategory == "yes":
             utility = input("Enter new bill category: ")
             utilities.append(utility)
-            newCategory = input("Enter 'no' if there isn't any additional bill category other than savings, rent, and electricity. ")
+            newCategory = input("Is there any additional bill category other than savings, rent, and electricity.(Enter 'yes' or 'no'): ")
          
         for category in utilities:
             percentage = int(input(f"Enter the percentage allocated to {category}: % "))
@@ -38,9 +38,9 @@ while action != "no":
         bills.append(bill)
         months ["Bills"] = bills
         monthList.append(months)
-        # print (bill) 
+
   
-    action = input("Want too add a new month? (Enter no if not): ")
+    action = input("Want to add a new month? (Enter 'yes' or 'no'): ")
 
 
 for i in range(len(monthList)):
