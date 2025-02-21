@@ -61,7 +61,7 @@ for i in range(len(monthList)):
         print (f"The remaining amount from your salary for {months['month']} is {value}. ")
         print (f"The estimated yearly cost of rent based on {months['month']}'s budget is: {yearRent}")
         print (f"The estimated yearly cost of electricity on {months['month']}'s budget is: {yearElectricity} ")
-        print (f"The square of {months['month']}'s salary is ${(months['salary'])**2} (For Fun) ")
+        print (f"The square of {months['month']}'s salary is ${(months['salary'])**2} (For Fun).")
         print ("---------------------------------------------------------------------------------------------------")
 
 
@@ -94,10 +94,37 @@ if len(monthList) <= 12:
     print (f"The estimated averager yearly budget for savings is ${yearlySavings}")   
     print (f"The estimated averager yearly budget for rent is ${yearlyRent}") 
     print (f"The estimated averager yearly budget for electricity is ${yearlyElectricity}") 
-    print (f"The square of your yearly estimated salary is {yearlySalary**2}")
+    print (f"The square of your yearly estimated salary is {yearlySalary**2} (For Fun).")
     print ("---------------------------------------------------------------------------------------------------")      
 
 
 else:
     print (" --ERROR-- Couldn't calculate yearly budgets. \nYou've entered more than 1 year worth of months. ")
     print ("---------------------------------------------------------------------------------------------------")   
+
+condition = input("Do you have any salary modifications?(Enter 'yes' or 'no'): ")
+
+while condition == "yes" and condition != "no":
+    monthChange = input ("Enter which month you wish to modify its salary: ")
+    salaryChange = int(input (f"Enter the amount you wish to add on the salary of {monthChange}: $"))
+    newExpences = 0
+    newCosts = {}
+   
+    for y in range(len(monthList)):
+        edit = monthList[y]
+        if monthChange == edit["month"]:
+            newSalary = salaryChange + edit["salary"]
+            for item in edit["Bills"]:
+                itemKey = list(item.keys())
+                for k in itemKey:
+                    item[k] = (item[k]/edit["salary"])*newSalary
+                    if k == "Electricity" or k == "Rent":
+                        newCosts[k] = (item[k]*12)
+                    if k != "Remainder":
+                        newExpences += item[k]
+                        print(f"The updated {k} budget is {item[k]}") 
+
+        
+        
+    condition = input("Do you have any salary modifications?(Enter 'yes' or 'no'): ")    
+  
